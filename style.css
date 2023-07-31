@@ -105,3 +105,17 @@ body{
     font-family: Montserrat;
     font-size: 16px;
 }
+
+.card-information{
+    display: flex;
+}
+.two-inp{
+    display: flex;
+}
+.two-inp div input{
+    padding: 15px 27px;
+    border-radius: 20px;
+    color: #808080;
+    font-family: Montserrat;
+    font-size: 16px;
+}
