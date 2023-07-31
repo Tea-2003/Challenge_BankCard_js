@@ -5,96 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BankCrad page</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Grandstander:wght@200&family=Inter:wght@400;700&family=Montserrat&family=Outfit&family=Poppins:wght@200;700&family=Rasa:wght@600&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="app">
         <div class="left-section">
-            <div class="cards">
-                <div class="front-card">
-                    <img src="" alt="front-card">
-                    <div class="card-container">
-                        <img src="" alt="logo">
+            <main>
+                <div class="cards">
+                    <div class="front-card">
+                        <img class="front-card-img" src="./images/img_frontcard.svg" alt="">
+                        <div class="card-logo"></div>
                         <div id="number">0000 0000 0000 0000</div>
                         <div class="card-infor">
-                            <span id="name">Y Kim Tra</span>
+                            <span id="name">Jane Applessed</span>
                             <span id="date">
                                 <span id="month">00</span>
                                 /
                                 <span id="year">00</span>
                             </span>
                         </div>
+
+                    </div>
+                    <div class="back-card">
+                        <img class="back-card-img" src="./images/img_backcard.svg" alt="back-card">
+                        <span id="cvc">000</span>
                     </div>
                 </div>
-                <div class="bank-card">
-                    <img src="" alt="bank-card">
-                    <span id="cvc">000</span>
-                </div>
-            </div>
+            </main>
         </div>
         <div class="right-section">
             <form action="">
                 <div class="grid-1">
-                    <label for="crad-name">Cardholder Name</label>
+                    <div class="card-title">Cardholder Name</div>
                     <input type="text" placeholder="e.g. Jane Applessed" id="card-name" required>
                 </div>
 
                 <div class="grid-2">
-                    <label for="card-number">Card Number</label>
-                    <input type="number" oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
-                    minlength="16"
-                    maxlength="16"
-                    placeholder="e.g. 1234 5678 9123 0000"
-                    id="card-number"
-                    required
-                    >
+                    <div class="card-title">Card Number</div>
+                    <input type="number"
+                        oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
+                        minlength="16" maxlength="16" placeholder="e.g. 1234 5678 9123 0000" id="card-number" required>
                 </div>
 
                 <div class="card-information">
                     <div id="card-date">
-                        <label for="card-date">Exp. Date (MM/YY)</label>
+                        <div class="card-title">Exp. Date (MM/YY)</div>
                         <div class="two-inp">
                             <div>
-                                <input type="number"
-                                placeholder="MM"
-                                oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
-                                maxlength="2"
-                                minlength="2"
-                                id="card-month"
-                                required
-                                >                       
+                                <input type="number" placeholder="MM"
+                                    oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
+                                    maxlength="2" minlength="2" id="card-month" required>
                             </div>
 
                             <div>
-                                <input type="number"
-                                placeholder="YY"
-                                oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
-                                maxlength="2"
-                                minlength="2"
-                                id="card-year"
-                                required
-                                >                       
+                                <input type="number" placeholder="YY"
+                                    oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
+                                    maxlength="2" minlength="2" id="card-year" required>
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="grid-4">
-                        <label for="card-cvc">CVC</label>
-                        <input 
-                        type="number" 
-                        oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
-                        minlength="3"
-                        maxlength="3"
-                        placeholder="e.g. 123"
-                        id="card-cvc"
-                        required
-                        >
-                    </div> 
+                        <div class="card-title">CVC</div>
+                        <input type="number"
+                            oninput="if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength)"
+                            minlength="3" maxlength="3" placeholder="e.g. 123" id="card-cvc" required>
+                    </div>
                 </div>
 
                 <button id="submit-btn" type="submit">Confirm</button>
-           
+
             </form>
 
             <div class="thank-hidden">
@@ -105,9 +89,8 @@
             </div>
         </div>
     </div>
-
-
     <script src="javascript.js"></script>
 </body>
 
 </html>
+

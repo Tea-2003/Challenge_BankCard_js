@@ -1,19 +1,24 @@
 body{
-    padding: 0;
+    width: auto;
+    height: auto;
     margin: 0;
-    min-height: 100vh;
+    padding: 0;
 }
 .hidden{
     display: none;
 }
-.container{
+.app{
+    width: 1206px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 280px;
+
 }
 .left-section{
     min-height: 100vh;
     width: 40%;
-    background: #410b65;
+    background: url(./images/img_background.svg), lightgray 50% / cover no-repeat;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -21,30 +26,82 @@ body{
 }
 .cards{
     position: absolute;
-    top: 50%;
+    top: 248px;
+    left: 192px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    /* left: 100%;
-    transform: translate(-50%,-50%); */
+
 }
-.form-card{
+.front-card{
     position: relative;
-    transform: translateX(-100px);
+    
 }
+.front-card-img{
+    padding: 0px;
+    
+}
+
 .card-logo{
     position: absolute;
-    top: 50px;
-    left: 20px;
+    background: #F5F5F5;
+    padding: 25px;
+    top: 60px;
+    left: 60px;
+
 }
 #number{
     position: absolute;
-    color: var(--white);
-    bottom: 50px;
-    letter-spacing: 2px;
+    color: #F5F5F5;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 400;
+    top: 128px;
+    left: 70px;
 }
-.card-info{
+.card-infor{
     position: absolute;
-    top: 50px;
-    left: 20px;
+    color: #F5F5F5;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 400;
+    top: 170px;
+    left: 70px;
+    display: flex;
+    gap: 10px;
+}
+
+
+.back-card{
+    position: relative;
+    margin-left: 82px;
+    top: -62px;
+}
+.right-section{
+    display: inline-block;
+}
+.grid-1{
+    display: grid;
+}
+.card-title{
+    color: #808080;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 700;
+}
+.grid-1 input{
+    padding: 15px 12px 15px 14px;
+    border-radius: 20px;
+    color: #808080;
+    font-family: Montserrat;
+    font-size: 16px;
+}
+.grid-2{
+    padding-top: 24px;
+}
+.grid-2 input{
+    padding: 15px 12px 15px 14px;
+    border-radius: 20px;
+    color: #808080;
+    font-family: Montserrat;
+    font-size: 16px;
 }
