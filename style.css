@@ -1,122 +1,377 @@
-body{
-    width: auto;
-    height: auto;
-    margin: 0;
+body {
+    min-height: 100%;
     padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box
 }
-.hidden{
-    display: none;
+
+.app {
+    height: 100vh;
+    background-image: url(./images/img_background.svg);
+    background-repeat: no-repeat;
+    background-size: auto 100%;
 }
-.app{
-    width: 1206px;
+
+.app_wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 280px;
+}
 
+/* .main .card {
+    width: 100%;
+    margin-left: 160px;
+} */
+
+.card_body {
+    display: flex;
+    align-items: center;
+    gap: 147px;
 }
-.left-section{
-    min-height: 100vh;
-    width: 40%;
-    background: url(./images/img_background.svg), lightgray 50% / cover no-repeat;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-}
-.cards{
-    position: absolute;
-    top: 248px;
-    left: 192px;
+
+.card_previews {
+    flex: 0 1 51.4285714286%;
+    max-width: 540px;
     display: flex;
     flex-direction: column;
-
-}
-.front-card{
-    position: relative;
-    
-}
-.front-card-img{
-    padding: 0px;
-    background-image: url(https://evgiss.github.io/interactive-bank-card/img/bg-card-front.209d5f43.png);
-    
+    gap: 24px
 }
 
-.card-logo{
+.card_preview {
+    max-width: 447px;
+    position: relative
+}
+
+/* .card_preview_front:after {
     position: absolute;
-    background: #F5F5F5;
+    width: 100%;
+    max-width: 84px;
+    height: 100%;
+    max-height: 50px;
+    left: 25px;
+    top: 25px;
+    background: url(../img/card-logo.cc3abd1d.svg);
+    background-repeat: no-repeat;
+    background-size: 100%
+} */
+.card_preview_front .card_logo{
+    position: absolute;
     padding: 25px;
-    top: 60px;
-    left: 60px;
-
+    background-color: #FFF;
+    top: 32px;
+    left: 32px;
 }
-#number{
+.card_preview_front .card_logo_small{
     position: absolute;
+    padding: 13px;
+    border: 2px solid #F5F5F5;
+    top: 45px;
+    left: 96px;
+}
+.card_preview_front .card_text {
+    bottom: 20px;
+    margin-left: 36px;
+    
+}
+
+.card_preview_back {
+    margin-left: 80px;
+}
+
+.card_preview_back .card_text {
+    top: 44%;
+    right: 44px;
+}
+
+.card_text {
+    position: absolute;
+    color: #fff,
+}
+
+.card_number {
+    margin-bottom: 13px;
     color: #F5F5F5;
     font-family: Montserrat;
     font-size: 24px;
     font-weight: 400;
-    top: 128px;
-    left: 70px;
+    letter-spacing: 2px;
 }
-.card-infor{
-    position: absolute;
+
+.card_bottom {
+    display: flex;
+    gap: 128px;
+    
+}
+.card_name {
+    letter-spacing: 1.5px;
     color: #F5F5F5;
     font-family: Montserrat;
     font-size: 16px;
     font-weight: 400;
-    top: 170px;
-    left: 70px;
+}
+.card_date{
+    color: #F5F5F5;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 400;
+}
+.card_cvc {
+    letter-spacing: 1px;
+    color: #F5F5F5;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.card_info {
+    max-width: 384px;
+}
+
+.card-form_fields {
+    margin-bottom: 50px;
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-
-.back-card{
-    position: relative;
-    margin-left: 82px;
-    top: -62px;
+.card-form_field {
+    width: 100%;
 }
-.right-section{
+
+.form-field.error .form-field_note-invalid {
+    display: block;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.form-field:nth-child(3) {
+    max-width: 166px;
+}
+
+.form-field:nth-child(4) {
+    max-width: 173px;
+}
+
+.form-field_label {
     display: inline-block;
-}
-.grid-1{
-    display: grid;
-}
-.card-title{
+    margin-bottom: 10px;
     color: #808080;
     font-family: Montserrat;
     font-size: 16px;
     font-weight: 700;
-}
-.grid-1 input{
-    padding: 15px 12px 15px 14px;
-    border-radius: 20px;
-    color: #808080;
-    font-family: Montserrat;
-    font-size: 16px;
-}
-.grid-2{
-    padding-top: 24px;
-}
-.grid-2 input{
-    padding: 15px 12px 15px 14px;
-    border-radius: 20px;
-    color: #808080;
-    font-family: Montserrat;
-    font-size: 16px;
+
 }
 
-.card-information{
-    display: flex;
-}
-.two-inp{
-    display: flex;
-}
-.two-inp div input{
-    padding: 15px 27px;
+.form-field_input {
+    width: 90%;
     border-radius: 20px;
+    padding: 15px 14px;
     color: #808080;
     font-family: Montserrat;
     font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    background: #FFF;
+    border: 1px solid #FF7F50 ;
+    outline: 1px solid #6A5ACD;
+}
+.card-form_field .form-field_input:focus{
+    border: 1px solid #6A5ACD;
+}
+
+.form-field_input._input-month,
+.form-field_input._input-year {
+    max-width: 44px;
+}
+
+.form-field_input._input-month {
+    margin-right: 10px;
+}
+
+.form-field_input._input-cvc {
+    max-width: 134px;
+}
+
+.form-field_note-invalid {
+    display: none;
+}
+
+.card-notify {
+    text-align: center;
+}
+
+.card-notify_img {
+    margin-bottom: 40px;
+}
+
+.card-notify_title {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+}
+
+.card-notify_text {
+    font-size: 18px;
+    color: #8e8593;
+    margin-bottom: 50px;
+}
+
+.btn {
+    width: 98%;
+    background: #3A0652;
+    border-radius: 15px;
+    padding: 15px;
+    color: #FFF;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #600594;
+}
+
+
+
+@media(max-width: 768px) {
+    /* .main {
+        align-items: flex-start;
+    } */
+
+    /* .main .card {
+        margin-top: 30px;
+    } */
+
+    .app {
+        height: 30vh;
+        background-size: 401px;
+    }
+
+    .app_wrapper {
+        padding: 0 40px;
+    }
+    img{
+        width: 288px;
+        height: 160px;
+    }
+
+    .card_previews {
+        flex: 0 1 100%;
+        width: 100%;
+        min-height: 254px;
+        position: relative;
+    }
+
+    .card_preview {
+        min-width: 286px;
+        height: auto;
+        min-height: 156px;
+        position: absolute;
+    }
+
+    .card_preview_front {
+        left: 0px;
+        top: 165px;
+    }
+
+    .card_preview_back {
+        top: 30px;
+        right: 0;
+        margin-left: 72px;
+    }
+
+    .card_info {
+        margin-top: 110px;
+    }
+
+    .card_body {
+        flex-direction: column;
+        gap: 150px;
+        gap: 0;
+    }
+    .card_preview_front .card_logo{
+        padding: 15px 15px;
+        border-radius: 20px;
+        top: 25px;
+        left: 25px;
+    }
+    .card_preview_front .card_logo_small{
+        padding: 8px 8px;
+        border-radius: 20px;
+        top: 31px;
+        left: 64px;
+    }
+    .card_preview_front .card_text {
+        bottom: 13px;
+        margin-left: 25px;
+        
+    }
+    .card_number {
+        color: #DEDDDF;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-weight: 400;
+        top: 58px;
+        
+    }
+    .card_bottom {
+        display: block;
+    }
+
+    .form-field_label{
+        font-size: 14px;
+    }
+    .btn{
+        width: 98.5%;
+    }
+    .card-notify_text {
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+
+    .form-field_input {
+        width: 91%;
+        border-radius: 10px;
+        padding: 8px 10px;
+    }
+    .card-form_fields {
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+    .form-field_label {
+        margin-bottom: 9px;
+    }
+
+    .form-field:nth-child(3) {
+        max-width: 150px;
+    }
+
+    .form-field:nth-child(4) {
+        max-width: 136px;
+    }
+
+    .form-field_input._input-month,
+    .form-field_input._input-year {
+        max-width: 35px;
+    }
+
+    .form-field_input._input-month {
+        margin-right: 5px;
+    }
+    .form-field_input._input-cvc {
+        max-width: 107px;
+    }
+
 }
