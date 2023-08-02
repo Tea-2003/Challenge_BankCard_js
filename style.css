@@ -2,21 +2,24 @@ body {
     min-height: 100%;
     padding: 0;
     margin: 0;
-    border: 0;
-    box-sizing: border-box
 }
 
 .app {
+    width: 1206px;
+    display: flex;
+    margin: 0 auto;
     height: 100vh;
     background-image: url(./images/img_background.svg);
     background-repeat: no-repeat;
-    background-size: auto 100%;
+    margin-left: 100px;
+
 }
 
 .app_wrapper {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    
 }
 
 .main {
@@ -24,6 +27,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 /* .main .card {
@@ -34,7 +38,8 @@ body {
 .card_body {
     display: flex;
     align-items: center;
-    gap: 147px;
+    gap: 160px;
+    margin: 0 107px 0 160px;
 }
 
 .card_previews {
@@ -42,7 +47,7 @@ body {
     max-width: 540px;
     display: flex;
     flex-direction: column;
-    gap: 24px
+    gap: 20px
 }
 
 .card_preview {
@@ -81,6 +86,10 @@ body {
     margin-left: 36px;
     
 }
+img{
+    width: 400px;
+    height: 200px;
+}
 
 .card_preview_back {
     margin-left: 80px;
@@ -88,7 +97,7 @@ body {
 
 .card_preview_back .card_text {
     top: 44%;
-    right: 44px;
+    right: 56px;
 }
 
 .card_text {
@@ -131,10 +140,6 @@ body {
     font-weight: 400;
 }
 
-.card_info {
-    max-width: 384px;
-}
-
 .card-form_fields {
     margin-bottom: 50px;
     display: flex;
@@ -146,6 +151,7 @@ body {
 
 .card-form_field {
     width: 100%;
+    border-radius: 20px;
 }
 
 .form-field.error .form-field_note-invalid {
@@ -155,11 +161,11 @@ body {
 }
 
 .form-field:nth-child(3) {
-    max-width: 166px;
+    max-width: 155px;
 }
 
 .form-field:nth-child(4) {
-    max-width: 173px;
+    max-width: 202px;
 }
 
 .form-field_label {
@@ -171,19 +177,20 @@ body {
     font-weight: 700;
 
 }
-
 .form-field_input {
-    width: 90%;
+    width: 100%;
     border-radius: 20px;
     padding: 15px 14px;
-    color: #808080;
+    box-sizing: border-box;
     font-family: Montserrat;
     font-size: 16px;
     font-weight: 400;
     line-height: 25px;
     background: #FFF;
-    border: 1px solid #FF7F50 ;
-    outline: 1px solid #6A5ACD;
+    background-origin: border-box;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #6A5ACD, #FF7F50);
+    border-image-width: 2px;
 }
 .card-form_field .form-field_input:focus{
     border: 1px solid #6A5ACD;
@@ -191,15 +198,15 @@ body {
 
 .form-field_input._input-month,
 .form-field_input._input-year {
-    max-width: 44px;
+    max-width: 70px;
 }
 
 .form-field_input._input-month {
-    margin-right: 10px;
+    margin-right: 6px;
 }
 
 .form-field_input._input-cvc {
-    max-width: 134px;
+    max-width: 202px;
 }
 
 .form-field_note-invalid {
@@ -228,10 +235,10 @@ body {
 }
 
 .btn {
-    width: 98%;
+    padding: 15px 170px;
+    box-sizing: border-box;
     background: #3A0652;
     border-radius: 15px;
-    padding: 15px;
     color: #FFF;
     font-family: Roboto, sans-serif;
     font-size: 16px;
@@ -242,8 +249,12 @@ body {
 .btn:hover {
     background-color: #600594;
 }
-
-
+.submitted-status{
+    display: none;
+}
+.submitted-status.visible {
+    display: block;
+  }
 
 @media(max-width: 768px) {
     /* .main {
@@ -256,7 +267,9 @@ body {
 
     .app {
         height: 30vh;
-        background-size: 401px;
+        background-size: 480px;
+        width: min-content;
+        margin-left: 0;
     }
 
     .app_wrapper {
@@ -265,6 +278,7 @@ body {
     img{
         width: 288px;
         height: 160px;
+        box-shadow: 0px 19px 38px 0px rgba(0, 0, 0, 0.30);
     }
 
     .card_previews {
@@ -293,13 +307,12 @@ body {
     }
 
     .card_info {
-        margin-top: 110px;
+        margin-top: 25px;
     }
 
     .card_body {
         flex-direction: column;
-        gap: 150px;
-        gap: 0;
+        margin: 0;
     }
     .card_preview_front .card_logo{
         padding: 15px 15px;
@@ -327,7 +340,14 @@ body {
         
     }
     .card_bottom {
-        display: block;
+        gap: 52px;
+    }
+    .card_name {
+        font-size: 14px;
+    }
+    .card_date{
+        font-size: 12px;
+        font-weight: 400;
     }
 
     .form-field_label{
@@ -335,6 +355,8 @@ body {
     }
     .btn{
         width: 98.5%;
+        border-radius: 10px;
+        background: #21092F;
     }
     .card-notify_text {
         font-size: 16px;
@@ -345,6 +367,14 @@ body {
         width: 91%;
         border-radius: 10px;
         padding: 8px 10px;
+    
+    }
+    .form-field_input .input-name{
+        letter-spacing: 1.5px;
+        color: #F5F5F5;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 400;
     }
     .card-form_fields {
         gap: 24px;
@@ -364,7 +394,8 @@ body {
 
     .form-field_input._input-month,
     .form-field_input._input-year {
-        max-width: 35px;
+        max-width: 48px;
+        margin-left: 9px;
     }
 
     .form-field_input._input-month {
