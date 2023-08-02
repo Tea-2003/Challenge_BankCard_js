@@ -54,6 +54,7 @@
                                                 <label for="cardNumber" class="form-field_label">Card Number</label>
                                                 <input 
                                                     id="cardNumber" 
+                                                    type="text"
                                                     maxlength="16" 
                                                     class="form-field_input _input-card-number"
                                                     placeholder="e.g. 1234 5678 9123 0000">
@@ -63,11 +64,14 @@
                                             <div class="card-form_field form-field">
                                                 <label for="dateMonth" class="form-field_label">Exp. Date (MM/YY)</label>
                                                 <input
-                                                    id="dateMonth" class="form-field_input _input-month"
+                                                    id="dateMonth" 
+                                                    type="text"
+                                                    class="form-field_input _input-month"
                                                     maxlength="2"
                                                     placeholder="MM">
                                                 <input 
                                                     id="dateYear"
+                                                    type="text"
                                                     maxlength="2" class="form-field_input _input-year" 
                                                     placeholder="YY">
 
@@ -77,10 +81,11 @@
                                                 <label for="cvc" class="form-field_label">CVC</label>
                                                 <input 
                                                     id="cvc" 
+                                                    type="text"
                                                     oninput="validateNumberInput(event)"
                                                     maxlength="3"
                                                     class="form-field_input _input-cvc" 
-                                                    placeholder="e.g. 123">
+                                                    placeholder="e.g. 123" >
                                                 <div class="form-field_note-invalid"></div>
                                             </div>
                                         </div> 
