@@ -1,198 +1,121 @@
-const $form = document.querySelector(".card_form");
-const $buttonContinue = document.querySelector("#btn-continue");
-const $cardNameInput = document.querySelector("._input-name");
-const $cardNumberInput = document.querySelector("._input-card-number");
-const $cardMonthInput = document.querySelector("._input-month");
-const $cardYearInput = document.querySelector("._input-year");
-const $cardCvcInput = document.querySelector("._input-cvc");
-const userName = $form.name.value;
-const cardNumber = $form["_input-card-number"].value;
-const YY = $form.YY.value;
-const MM = $form.MM.value;
-const CVC = $form.CVC.value;
 
-function validateName(userName) {
-  if (userName.length === 0) {
-    return "This field cannot be blank";
-  } else if (userName.length > 50) {
-    return "This field cannot contain more than 50 characters";
-  } else if (!/^[ a-z]+$/i.test(userName)) {
-    return "This field can only contain letters";
-  } else {
-    return "";
-  }
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const cardForm = document.querySelector(".card_form");
 
-let lastValidCardNumber = "0000 0000 0000 0000";
-function validateCardNumber(cardNumber) {
-  if (cardNumber.length === 0) {
-    document.querySelector('.card_number').textContent = "0000 0000 0000 0000";
-    return "This field cannot be blank";
-  } else if (!/([0-9]{4}\s?){4}/.test(cardNumber)) {
-    document.querySelector('.card_number').textContent = lastValidCardNumber;
-    return "Invalid credit card number";
-  } else {
-    return "";
-  }
-}
-
-function validateYear(YY) {
-  if (YY.length === 0) {
-    return "This field cannot be blank";
-  } else if (!/^[0-9][0-9]$/.test(YY)) {
-    if (/^[1-9][0-9]$/.test(YY)) {
-      return "";
-    }
-    return "Invalid year format";
-  } else {
-    return "";
-  }
-}
-
-function validateMonth(MM) {
-  if (MM.length === 0) {
-    return "This field cannot be blank";
-  } else if (MM > 12) {
-    return "Invalid month format";
-  } else if (!/^0[0-9]|1[0-2]$/.test(MM)) {
-    if (/^[1-9][0-9]$/.test(MM)) {
-      return "";
-    }
-    return "Invalid month format";
-  } else {
-    return "";
-  }
-}
-
-function validateCVC(CVC) {
-  if (CVC.length === 0) {
-    return "This field cannot be blank";
-  } else if (!/^[0-9][0-9][1-9]$/.test(CVC)) {
-    if (/^[0-9][1-9][0-9]$/.test(CVC)) {
-      return "";
-    }
-    if (/^[1-9][0-9][0-9]$/.test(CVC)) {
-      return "";
-    }
-    return "Invalid CVC format";
-  } else {
-    return "";
-  }
-}
-
-function validateForm(event) {
-  const $submittedStatus = document.querySelector(".submitted-status");
-  const userName = $cardNameInput.value;
-  const cardNumber = $cardNumberInput.value;
-  const YY = $cardYearInput.value;
-  const MM = $cardMonthInput.value;
-  const CVC = $cardCvcInput.value;
-
-  const errorName = validateName(userName);
-  const errorCardNumber = validateCardNumber(cardNumber);
-  const errorYear = validateYear(YY);
-  const errorMonth = validateMonth(MM);
-  const errorCVC = validateCVC(CVC);
-
-  const errors = {
-    name: errorName,
-    "card-number": errorCardNumber,
-    _input_year: errorYear,
-    _input_month: errorMonth,
-    _input_cvc: errorCVC,
-  };
-
-  const noErrors = manageErrors(errors) === 0;
-
-  if (noErrors) {
-    $form.classList.add("occult");
-    $submittedStatus.classList.remove("occult");
+  function validateName(name) {
+    return name.trim() === "" ? "Can't be blank." : null;
   }
 
-  event.preventDefault();
-}
+  function validateCardNumber(cardNumber) {
+    return cardNumber.trim() === "" || cardNumber.trim() === "00".repeat(16)
+      ? "Invalid card number."
+      : null;
+  }
 
-function manageErrors(errors) {
-  const keys = Object.keys(errors);
-  let numberOfErrors = 0;
-  const $nameErrorText = document.querySelector("#nameError");
-  const $cardNumberErrorText = document.querySelector("#cardNumberError");
-  const $MMerrorText = document.querySelector("#MMerror");
-  const $YYerrorText = document.querySelector("#YYerror");
-  const $cvcErrorText = document.querySelector("#cvcError");
+  function validateYear(year) {
+    return year.trim() === "" ? "Can't be blank." : null;
+  }
 
-  keys.forEach(function (key) {
-    const error = errors[key];
+  function validateMonth(month) {
+    return month.trim() === "" || !/^\d{2}$/.test(month) ? "Invalid month." : null;
+  }
 
-    if (error) {
-      numberOfErrors++;
-      $form[key].classList.add("error");
-      if (key === "name") {
-        $nameErrorText.textContent = error;
-      } else if (key === "card-number") {
-        $cardNumberErrorText.textContent = error;
-      } else if (key === "_input_year") {
-        $YYerrorText.textContent = error;
-      } else if (key === "_input_month") {
-        $MMerrorText.textContent = error;
-      } else if (key === "_input_cvc") {
-        $cvcErrorText.textContent = error;
+  function validateCVC(cvc) {
+    return cvc.trim() === "" || !/^\d{3}$/.test(cvc) ? "Invalid CVC." : null;
+  }
+
+  function manageErrors(errors) {
+    let errorCount = 0;
+    for (const key in errors) {
+      const errorMessage = errors[key];
+      const formField = document.getElementById(key);
+      const noteInvalidElement = formField.nextElementSibling;
+      if (errorMessage) {
+        displayError(formField, noteInvalidElement, errorMessage);
+        errorCount++;
+      } else {
+        clearError(formField, noteInvalidElement);
       }
-    } else {
-      $form[key].classList.remove("error");
     }
+    return errorCount;
+  }
+
+  document.querySelectorAll(".form-field_input").forEach((input) => {
+    input.addEventListener("input", function () {
+      const formField = input.parentElement;
+      const noteInvalidElement = formField.querySelector(".form-field_note-invalid");
+      const inputValue = input.value.trim();
+
+      if (inputValue === "") {
+        displayError(formField, noteInvalidElement, "Can't be blank.");
+      } else if (inputValue === "0") {
+        displayError(formField, noteInvalidElement, "Value cannot be 0.");
+      } else {
+        clearError(formField, noteInvalidElement);
+      }
+    });
   });
 
-  return numberOfErrors;
-}
 
-function writeTextCard() {
-  const nameFrontCard = document.querySelector(".card_name");
-  const numberFrontCard = document.querySelector(".card_number");
-  const monthFrontCard = document.querySelector(".card_date .card_month");
-  const yearFrontCard = document.querySelector(".card_date .card_year");
-  const numberBackCard = document.querySelector(".card_cvc");
+  function displayError(formField, noteInvalidElement, message) {
+    noteInvalidElement.textContent = message;
+    noteInvalidElement.style.color = "red";
+    formField.classList.add("error");
+  }
 
-  $cardNameInput.addEventListener("input", () => {
-    nameFrontCard.textContent = $cardNameInput.value || "Jane Appleseed";
+  function clearError(formField, noteInvalidElement) {
+    noteInvalidElement.textContent = "";
+    formField.classList.remove("error");
+  }
+
+  const nameInput = document.getElementById("name");
+  const cardName = document.querySelector(".card_name");
+  nameInput.addEventListener("input", function () {
+    cardName.textContent = this.value.trim() || "Jane Appleseed";
   });
 
-  $cardNumberInput.addEventListener("input", () => {
-    numberFrontCard.textContent =
-      $cardNumberInput.value || "0000 0000 0000 0000";
+  const cardNumberInput = document.getElementById("cardNumber");
+  const cardNumber = document.querySelector(".card_number");
+  cardNumberInput.addEventListener("input", function () {
+    const value = this.value.trim();
+    const formattedValue = formatCardNumber(value);
+    cardNumber.textContent = formattedValue || "0000 0000 0000 0000";
   });
 
-  $cardMonthInput.addEventListener("input", () => {
-    monthFrontCard.textContent = $cardMonthInput.value || "MM";
+  function formatCardNumber(cardNumber) {
+    if (!cardNumber) return "";
+    return cardNumber.replace(/\D/g, "").replace(/(.{4})/g, "$1 ").trim();
+  }
+  
+  const monthInput = document.getElementById("MM");
+  const yearInput = document.getElementById("YY");
+  const cardDate = document.querySelector(".card_date");
+  
+  monthInput.addEventListener("input", function () {
+    const month = this.value.trim();
+    cardDate.textContent = month ? month.padStart(2, "0") + "/" + yearInput.value.trim() : "00/00";
   });
-
-  $cardYearInput.addEventListener("input", () => {
-    yearFrontCard.textContent = $cardYearInput.value || "YY";
+  
+  yearInput.addEventListener("input", function () {
+    const year = this.value.trim();
+    cardDate.textContent = monthInput.value.trim() ? monthInput.value.trim().padStart(2, "0") + "/" + year : "00/00";
   });
-
-  $cardCvcInput.addEventListener("input", () => {
-    numberBackCard.textContent = $cardCvcInput.value || "000";
+  
+  const cvcInput = document.getElementById("CVC");
+  const cardCVC = document.querySelector(".card_cvc");
+  cvcInput.addEventListener("input", function () {
+    cardCVC.textContent = this.value.trim() ?? "000";
   });
-
-  $cardNumberInput.addEventListener("keyup", function (e) {
-    const input = e.target.value.replace(/\s/g, "").trim();
-    if (input.length > 0) {
-      const formattedInput = input
-        .match(/.{1,4}/g)
-        .join(" ")
-        .substring(0, 19);
-      e.target.value = formattedInput;
-      numberFrontCard.textContent = formattedInput;
-      lastValidCardNumber = formattedInput;
-    } else {
-      numberFrontCard.textContent = "0000 0000 0000 0000";
-    }
-  });
-}
-
-writeTextCard();
-
-$form.addEventListener("submit", validateForm);
-$buttonContinue.addEventListener("click", function () {
-  location.reload();
 });
+
+function continueBtn() {
+  location.reload();
+  document.querySelector('.completion-message').style.display = 'none'
+  document.querySelector('.form').style.display = 'flex'
+}
+
+function confirmBtn() {
+
+  document.querySelector('.card_info').style.display = 'none';
+  document.querySelector('.completion-message').style.display = 'block';
+}

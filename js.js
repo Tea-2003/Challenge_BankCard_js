@@ -1,207 +1,108 @@
-const $form = document.querySelector("#card-form");
-const $buttonContinue = document.querySelector("#btn-continue");
-const $cardNameInput = document.querySelector("#name");
-const $cardNumberInput = document.querySelector("#card-number");
-const $cardMonthInput = document.querySelector("#MM");
-const $cardYearInput = document.querySelector("#YY");
-const $cardCvcInput = document.querySelector("#CVC");
-const userName = $form.name.value;
-const cardNumber = $form["card-number"].value;
-const YY = $form.YY.value;
-const MM = $form.MM.value;
-const CVC = $form.CVC.value;
-
-function validateName(userName) {
-  if (userName.length === 0) {
-    return "This field cannot be blank";
-  } else if (userName.length > 50) {
-    return "This field cannot contain more than 50 characters";
-  } else if (!/^[ a-z]+$/i.test(userName)) {
-    return "This field can only contain letters";
-  } else {
-    return "";
-  }
-}
-let lastValidCardNumber = "0000 0000 0000 0000";
-function validateCardNumber(cardNumber) {
-  if (cardNumber.length === 0) {
-    document.querySelector('.num-card').textContent = "0000 0000 0000 0000";
-    return "This field cannot be blank";
-  } else if (!/([0-9]{4}\s?){4}/.test(cardNumber)) {
-    document.querySelector('.num-card').textContent = lastValidCardNumber;
-    return "Invalid credit card number";
-  } else {
-    return "";
-  }
-}
-
-
-function validateYear(YY) {
-  if (YY.length === 0) {
-    return "This field cannot be blank";
-  } else if (!/^[0-9][1-9]$/.test(YY)) {
-    if (/^[1-9][0-9]$/.test(YY)) {
-      return "";
+function confirmBtn() {
+    // Lấy giá trị từ các trường thông tin thẻ tín dụng
+    const cardholderName = document.getElementById("name").value.trim();
+    const cardNumber = document.getElementById("cardNumber").value.trim();
+    const expirationMonth = document.getElementById("MM").value.trim();
+    const expirationYear = document.getElementById("YY").value.trim();
+    const cvc = document.getElementById("CVC").value.trim();
+  
+    // Kiểm tra xem các trường thông tin có hợp lệ hay không
+    if (cardholderName === "") {
+      showError("Please enter cardholder name.");
+      return;
     }
-    return "Invalid year format";
-  } else {
-    return "";
-  }
-}
-
-function validateMonth(MM) {
-  if (MM.length === 0) {
-    return "This field cannot be blank";
-  }
-  if (MM > 12) {
-    return "Invalid month format";
-  }
-  else if (!/^0[0-9]|1[0-2]$/.test(MM)) {
-    if (/^[1-9][0-9]$/.test(MM)) {
-      return "";
+  
+    if (!validateCardNumber(cardNumber)) {
+      showError("Invalid card number.");
+      return;
     }
-    return "Invalid month format";
-  }
-
-  else {
-    return "";
-  }
-}
-
-function validateCVC(CVC) {
-  if (CVC.length === 0) {
-    return "This field cannot be blank";
-  } else if (!/^[0-9][0-9][1-9]$/.test(CVC)) {
-    if (/^[0-9][1-9][0-9]$/.test(CVC)) {
-      return "";
+  
+    if (!validateExpirationDate(expirationMonth, expirationYear)) {
+      showError("Invalid expiration date.");
+      return;
     }
-    if (/^[1-9][0-9][0-9]$/.test(CVC)) {
-      return "";
+  
+    if (!validateCVC(cvc)) {
+      showError("Invalid CVC.");
+      return;
     }
-    return "Invalid CVC format";
-  } else {
-    return "";
+  
+    // Nếu thông tin thẻ hợp lệ, ẩn form và hiển thị completion-message
+    document.querySelector('.form').style.display = 'none';
+    document.querySelector('.completion-message').style.display = 'block';
   }
-}
+  document.querySelectorAll(".form-field_input").forEach((input) => {
+    input.addEventListener("input", function () {
+      const formField = input.parentElement;
+      const noteInvalidElement = formField.querySelector(".form-field_note-invalid");
+      const inputValue = input.value.trim();
 
-function validateForm(event) {
-  const $submittedStatus = document.querySelector(".submitted-status");
-  const userName = $form.name.value;
-  const cardNumber = $form["card-number"].value;
-  const YY = $form.YY.value;
-  const MM = $form.MM.value;
-  const CVC = $form.CVC.value;
+      if (inputValue === "") {
+        displayError(formField, noteInvalidElement, "Can't be blank.");
+      } else if (inputValue === "0") {
+        displayError(formField, noteInvalidElement, "Value cannot be 0.");
+      } else {
+        clearError(formField, noteInvalidElement);
+      }
+    });
+});
 
-  const errorName = validateName(userName);
-  const errorCardNumber = validateCardNumber(cardNumber);
-  const errorYear = validateYear(YY);
-  const errorMonth = validateMonth(MM);
-  const errorCVC = validateCVC(CVC);
-
-  const errors = {
-    name: errorName,
-    "card-number": errorCardNumber,
-    YY: errorYear,
-    MM: errorMonth,
-    CVC: errorCVC,
-  };
-
-  const noErrors = manageErrors(errors) === 0;
-
-  if (noErrors) {
-$form.classList.add("occult");
-    $submittedStatus.classList.remove("occult");
+  // Hàm hiển thị thông báo lỗi
+  function showError(errorMessage) {
+    const errorNoteElements = document.querySelectorAll(".form-field_note-invalid");
+    errorNoteElements.forEach((element) => {
+      element.textContent = errorMessage;
+    });
   }
-
-  event.preventDefault();
-}
-
-function manageErrors(errors) {
-  const keys = Object.keys(errors);
-  let numberOfErrors = 0;
-  const $nameErrorText = document.querySelector("#nameError");
-  const $cardNumberErrorText = document.querySelector("#cardNumberError");
-  const $MMerrorText = document.querySelector("#MMerror");
-  const $YYerrorText = document.querySelector("#YYerror");
-  const $cvcErrorText = document.querySelector("#cvcError");
-
-  keys.forEach(function (key) {
-    const error = errors[key];
-
-    if (error) {
-      numberOfErrors++;
-      $form[key].className = "error";
-      $nameErrorText.textContent = errors.name;
-      $cardNumberErrorText.textContent = errors["card-number"];
-      $MMerrorText.textContent = errors.MM;
-      $YYerrorText.textContent = errors.YY;
-      $cvcErrorText.textContent = errors.CVC;
+  
+  // Hàm kiểm tra tính hợp lệ của số thẻ tín dụng
+  function validateCardNumber(cardNumber) {
+    const cardNumberPattern = /^[0-9]{16}$/;
+    return cardNumberPattern.test(cardNumber);
+  }
+  
+  // Hàm kiểm tra tính hợp lệ của ngày hết hạn
+  if (
+    name_field.value !== '' &&
+    num_field.value.length === 16 &&
+    month_field.value !== '' &&
+    month_field.value !== '00' &&
+    year_field.value !== '' &&
+    year_field.value !== '00' &&
+    cvc_field.value.length === 3 &&
+    cvc_field.value !== '000' &&
+    inputMonth >= 1 &&
+    inputMonth <= 12 &&
+    inputYear > 0
+    ) {
+    document.querySelector('.form').style.display = 'none';
+    document.querySelector('.completion-message').style.display = 'flex';
+    
+    }
+    
+  
+  // Hàm kiểm tra tính hợp lệ của mã CVC
+  function validateCVC(cvc) {
+    const cvcPattern = /^[0-9]{3}$/;
+    return cvcPattern.test(cvc);
+  }
+  
+  function continueBtn() {
+    // Kiểm tra xem các trường thông tin có hợp lệ hay không trước khi chuyển trang
+    const cardholderName = document.getElementById("name").value.trim();
+    const cardNumber = document.getElementById("cardNumber").value.trim();
+    const expirationMonth = document.getElementById("MM").value.trim();
+    const expirationYear = document.getElementById("YY").value.trim();
+    const cvc = document.getElementById("CVC").value.trim();
+  
+    if (cardholderName === "" || !validateCardNumber(cardNumber) || !validateExpirationDate(expirationMonth, expirationYear) || !validateCVC(cvc)) {
+      // Nếu các thông tin không hợp lệ, hiển thị lỗi và không chuyển trang
+      showError("Please fill in all valid card details.");
     } else {
-      $form[key].className = "";
+      // Nếu thông tin hợp lệ, chuyển trang và reset các trường thông tin
+      location.reload();
+      document.querySelector('.completion-message').style.display = 'none';
+      document.querySelector('.form').style.display = 'flex';
     }
-  });
-
-  return numberOfErrors;
-}
-
-function writeTextCard() {
-  const nameFrontCard = document.querySelector(".name-card");
-  const numberFrontCard = document.querySelector(".num-card");
-  const monthFrontCard = document.querySelector(".MM-date");
-  const yearFrontCard = document.querySelector(".YY-date");
-  const numberBackCard = document.querySelector(".cvc-card");
-
-  $cardNameInput.addEventListener("input", () => {
-    nameFrontCard.innerText = $cardNameInput.value;
-
-    if ($cardNameInput.value === "") {
-      nameFrontCard.innerText = "Jane Appleseed";
-    }
-  });
-
-  $cardNumberInput.addEventListener("input", () => {
-    numberFrontCard.innerText = $cardNumberInput.value;
-
-    if ($cardNumberInput.value === "") {
-      numberFrontCard.innerText = "0000 0000 0000 0000";
-    }
-  });
-
-  $cardNumberInput.addEventListener("keyup", function (e) {
-    e.target.value = e.target.value
-      .replace(/[\s]/g, "")
-      .replace(/(.{4})/g, "$1 ")
-      .trim();
-  });
-
-  $cardMonthInput.addEventListener("input", () => {
-    monthFrontCard.innerText = $cardMonthInput.value;
-
-    if ($cardMonthInput.value === "") {
-      monthFrontCard.innerText = "00";
-    }
-  });
-
-  $cardYearInput.addEventListener("input", () => {
-    yearFrontCard.innerText = $cardYearInput.value;
-
-    if ($cardYearInput.value === "") {
-      yearFrontCard.innerText = "00";
-    }
-  });
-
-  $cardCvcInput.addEventListener("keyup", () => {
-    numberBackCard.innerText = $cardCvcInput.value;
-
-    if ($cardCvcInput.value === "") {
-      numberBackCard.innerText = "000";
-    }
-  });
-}
-
-writeTextCard();
-
-$form.onsubmit = validateForm;
-$buttonContinue.onclick = function () {
-  location.reload();
-};
+  }
+  
