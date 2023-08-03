@@ -27,7 +27,10 @@
                                         <div class="card_number">0000 0000 0000 0000</div>
                                         <div class="card_bottom">
                                             <span class="card_name">Jane Appleseed</span>
-                                            <span class="card_date">00/00</span>
+                                            <!-- <span class="card_date">00</span> -->
+                                            <span class="MM-date">00</span>
+                                            <span class="card_date">/</span>
+                                            <span class="YY-date">00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -48,20 +51,23 @@
                                                         id="name"
                                                         type="text" class="form-field_input _input-name"
                                                         placeholder="e.g. Jane Appleseed">
-                                                    <div class="name-warn">Holdername can't be blank</div>
-                                                <div class="form-field_note-invalid"></div>
+                                                        <span id="nameError">This field cannot be blank</span>
+                                                    <!-- <div class="name-warn">Holdername can't be blank</div>
+                                                <div id="nameError" class="form-field_note-invalid"></div> -->
                                             </div>
 
                                             <div class="card-form_field form-field">
-                                                <label for="cardNumber" class="form-field_label">Card Number</label>
+                                                <label for="card-number" class="form-field_label">Card Number</label>
                                                 <input 
-                                                    id="cardNumber" 
+                                                     
+                                                    id="card-number" 
                                                     type="text"
                                                     maxlength="16"
                                                     class="form-field_input _input-card-number"
                                                     placeholder="e.g. 1234 5678 9123 0000">
-                                                    <div class="number-warn">Card number can't be blank</div>
-                                                <div class="form-field_note-invalid"></div>
+                                                    <span id="cardNumberError">This field cannot be blank</span>
+                                                    <!-- <div class="number-warn">Card number can't be blank</div>
+                                                <div class="form-field_note-invalid"></div> -->
                                             </div>
 
                                             <div class="card-form_field form-field-calculator">
@@ -73,14 +79,17 @@
                                                         class="form-field_input _input-month"
                                                         maxlength="2"
                                                         placeholder="MM">
+                                                    <span id="MMerror"></span>
                                                     <input 
                                                         id="YY"
                                                         type="text"
                                                         class="form-field_input _input-year"
                                                         maxlength="2" 
                                                         placeholder="YY">
+                                                    <span id="YYerror"></span>
+<!-- 
                                                     <div class="month-year-warn">Month and year can't be blank</div>
-                                                    <div class="form-field_note-invalid"></div>
+                                                    <div class="form-field_note-invalid"></div> -->
                                                 </div>
                                                 <div class="card-form_field form-field-cvc">
                                                     <label for="cvc" class="form-field_label">CVC</label>
@@ -90,21 +99,24 @@
                                                         class="form-field_input _input-cvc"
                                                         maxlength="3"
                                                         placeholder="e.g. 123" >
-                                                        <div class="cvc-warn">CVC can't be blank</div>
-                                                    <div class="form-field_note-invalid"></div>
+                                                    <span id="cvcError"></span>
+                                                        <!-- <div class="cvc-warn">CVC can't be blank</div>
+                                                    <div class="form-field_note-invalid"></div> -->
                                                 </div>
                                             </div>
                                         </div> 
                                         
-                                        <button type="submit" class="card-form_button btn" onclick="confirmBtn()"> Confirm </button> 
+                                        <button type="submit" id="btn-confirm" class="card-form_button btn" > Confirm </button> 
+                                        <!-- <button type="submit" id="btn-confirm" class="card-form_button btn" onclick="confirmBtn()"> Confirm </button>  -->
                                     </div>
                                 </form>
                             </div>
-                            <div class="completion-message">
+                            <div class="completion-message occult">
                                 <img src="./images/icon_tick.svg" alt="completion icon">
                                 <div class="thanks">Thank you!</div>
                                 <div class="sub-title">We've added your card details</div>
-                                <button class="btn" onclick="continueBtn()">Continue</button>
+                                <button class="btn" id="btn-continue">Continue</button>
+                                <!-- <button class="btn" onclick="continueBtn()" id="btn-continue">Continue</button> -->
                             </div> 
                         </div>
                     </div>
@@ -114,7 +126,7 @@
     </div>
 
 
-    <script src="./javascript.js"></script>
+    <script src="./java.js"></script>
 
 
 

@@ -1,68 +1,70 @@
-function confirmBtn() {
-    // Lấy giá trị từ các trường thông tin thẻ tín dụng
-    const cardholderName = document.getElementById("name").value.trim();
-    const cardNumber = document.getElementById("cardNumber").value.trim();
-    const expirationMonth = document.getElementById("MM").value.trim();
-    const expirationYear = document.getElementById("YY").value.trim();
-    const cvc = document.getElementById("CVC").value.trim();
+function continueBtn() {
+  location.reload();
+  document.querySelector('.completion-message').style.display = 'none'
+  document.querySelector('.form').style.display = 'flex'
   
-    // Kiểm tra xem các trường thông tin có hợp lệ hay không
-    if (cardholderName === "") {
-      showError("Please enter cardholder name.");
-      return;
-    }
+  num_field.value = ''
+  name_field.value = ''
+  month_field.value = ''
+  year_field.value = ''
+  cvc_field.value = ''
   
-    if (!validateCardNumber(cardNumber)) {
-      showError("Invalid card number.");
-      return;
-    }
-  
-    if (!validateExpirationDate(expirationMonth, expirationYear)) {
-      showError("Invalid expiration date.");
-      return;
-    }
-  
-    if (!validateCVC(cvc)) {
-      showError("Invalid CVC.");
-      return;
-    }
-  
-    // Nếu thông tin thẻ hợp lệ, ẩn form và hiển thị completion-message
-    document.querySelector('.form').style.display = 'none';
-    document.querySelector('.completion-message').style.display = 'block';
+  document.querySelector('.name-warn').style.display = 'none';
+  document.querySelector('.number-warn').style.display = 'none';
+  document.querySelector('.release-month-year-warn').style.display = 'none';
+  document.querySelector('.cvc-warn').style.display = 'none';
   }
-  document.querySelectorAll(".form-field_input").forEach((input) => {
-    input.addEventListener("input", function () {
-      const formField = input.parentElement;
-      const noteInvalidElement = formField.querySelector(".form-field_note-invalid");
-      const inputValue = input.value.trim();
 
-      if (inputValue === "") {
-        displayError(formField, noteInvalidElement, "Can't be blank.");
-      } else if (inputValue === "0") {
-        displayError(formField, noteInvalidElement, "Value cannot be 0.");
-      } else {
-        clearError(formField, noteInvalidElement);
-      }
-    });
-});
+  function confirmBtnClick(ev) {
 
-  // Hàm hiển thị thông báo lỗi
-  function showError(errorMessage) {
-    const errorNoteElements = document.querySelectorAll(".form-field_note-invalid");
-    errorNoteElements.forEach((element) => {
-      element.textContent = errorMessage;
-    });
-  }
-  
-  // Hàm kiểm tra tính hợp lệ của số thẻ tín dụng
-  function validateCardNumber(cardNumber) {
-    const cardNumberPattern = /^[0-9]{16}$/;
-    return cardNumberPattern.test(cardNumber);
-  }
-  
-  // Hàm kiểm tra tính hợp lệ của ngày hết hạn
-  if (
+    // Reset error messages
+    document.querySelector('.name-warn').style.display = 'none';
+    document.querySelector('.number-warn').style.display = 'none';
+    document.querySelector('.release-month-year-warn').style.display = 'none';
+    document.querySelector('.cvc-warn').style.display = 'none';
+    
+    // Check name field
+    if (name_field.value === '') {
+    document.querySelector('.name-warn').style.display = 'initial';
+    }
+    
+    // Check number field
+    if (num_field.value === '' || num_field.value.length < 16) {
+    document.querySelector('.number-warn').style.display = 'initial';
+    } else {
+    // Check if the card number is numeric and has 16 digits
+    const cardNumber = num_field.value.replace(/\s+/g, ''); // Remove any spaces
+    if (isNaN(cardNumber) || cardNumber.length !== 16) {
+    document.querySelector('.number-warn').style.display = 'initial';
+    }
+    }
+    
+    // Check month field
+    const inputMonth = parseInt(month_field.value);
+    if (month_field.value === '' || isNaN(inputMonth) || inputMonth < 1 || inputMonth > 12) {
+    document.querySelector('.release-month-year-warn').style.display = 'initial';
+    } else {
+    document.querySelector('.release-month-year-warn').style.display = 'none';
+    }
+    
+    const inputYear = parseInt(year_field.value);
+    if (year_field.value === '' || isNaN(inputYear) || inputYear < 1) {
+    document.querySelector('.release-month-year-warn').style.display = 'initial';
+    } else {
+    if (document.querySelector('.release-month-year-warn').style.display !== 'initial') {
+    document.querySelector('.release-month-year-warn').style.display = 'none';
+    }
+    }
+    
+    // Check CVC field
+    if (cvc_field.value === '' || cvc_field.value < 1) {
+    document.querySelector('.cvc-warn').style.display = 'initial';
+    } else if (cvc_field.value.length < 3) {
+    document.querySelector('.cvc-warn').style.display = 'initial';
+    }
+    
+    // Check if all fields are valid, if yes, hide the form and show the completion message
+    if (
     name_field.value !== '' &&
     num_field.value.length === 16 &&
     month_field.value !== '' &&
@@ -79,30 +81,9 @@ function confirmBtn() {
     document.querySelector('.completion-message').style.display = 'flex';
     
     }
-    
-  
-  // Hàm kiểm tra tính hợp lệ của mã CVC
-  function validateCVC(cvc) {
-    const cvcPattern = /^[0-9]{3}$/;
-    return cvcPattern.test(cvc);
-  }
-  
-  function continueBtn() {
-    // Kiểm tra xem các trường thông tin có hợp lệ hay không trước khi chuyển trang
-    const cardholderName = document.getElementById("name").value.trim();
-    const cardNumber = document.getElementById("cardNumber").value.trim();
-    const expirationMonth = document.getElementById("MM").value.trim();
-    const expirationYear = document.getElementById("YY").value.trim();
-    const cvc = document.getElementById("CVC").value.trim();
-  
-    if (cardholderName === "" || !validateCardNumber(cardNumber) || !validateExpirationDate(expirationMonth, expirationYear) || !validateCVC(cvc)) {
-      // Nếu các thông tin không hợp lệ, hiển thị lỗi và không chuyển trang
-      showError("Please fill in all valid card details.");
-    } else {
-      // Nếu thông tin hợp lệ, chuyển trang và reset các trường thông tin
-      location.reload();
-      document.querySelector('.completion-message').style.display = 'none';
-      document.querySelector('.form').style.display = 'flex';
     }
-  }
-  
+    function confirmBtn() {
+
+      document.querySelector('.card_info').style.display = 'none';
+      document.querySelector('.completion-message').style.display = 'block';
+    }

@@ -114,6 +114,28 @@ body {
     font-weight: 400;
 }
 
+.occult {
+    display: none;
+  }
+  
+  .error {
+    position: relative;
+    border: 1px solid red;
+    outline: none;
+  }
+  
+  form span {
+    margin-left: 14px;
+    position: absolute;
+    display: block;
+    font-size: 0.8rem;
+    color: red;
+  }
+  
+  span#cvcError {
+    margin-top: -50px;
+  }
+
 .card_date {
     color: #F5F5F5;
     font-family: Montserrat;
