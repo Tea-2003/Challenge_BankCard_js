@@ -408,7 +408,7 @@ form input[type="text"]{
     }
 
     .card-form_fields {
-        gap: 23px;
+        gap: 24px 17px;
         margin-bottom: 24px;
     }
 
@@ -421,20 +421,16 @@ form input[type="text"]{
     }
 
     .form-field:nth-child(4) {
-        max-width: 125px;
-    }
-
-    .form-field_input._input-month,
-    .form-field_input._input-year {
-        max-width: 70px;
+        max-width: 153px;
     }
 
     .form-field_input._input-month {
+        max-width: 70px;
         margin-right: 5px;
     }
 
     .form-field_input._input-cvc {
-        max-width: 125px;
+        max-width: 160px;
     }
 
 }

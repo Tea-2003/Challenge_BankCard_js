@@ -64,15 +64,18 @@
                                             <div class="card-form_field form-field">
                                                 <label for="dateMonth" class="form-field_label">Exp. Date (MM/YY)</label>
                                                 <input
-                                                    id="dateMonth" 
+                                                    id="MM" 
                                                     type="text"
                                                     class="form-field_input _input-month"
                                                     maxlength="2"
+                                                    onkeyup="this.value = this.value.replace(/[^0-9]/, '')" required
                                                     placeholder="MM">
                                                 <input 
-                                                    id="dateYear"
+                                                    id="YY"
                                                     type="text"
-                                                    maxlength="2" class="form-field_input _input-year" 
+                                                    class="form-field_input _input-year"
+                                                    maxlength="2" 
+                                                    onkeyup="this.value = this.value.replace(/[^0-9]/, '')" required 
                                                     placeholder="YY">
 
                                                 <div class="form-field_note-invalid"></div>
@@ -80,11 +83,11 @@
                                             <div class="card-form_field form-field">
                                                 <label for="cvc" class="form-field_label">CVC</label>
                                                 <input 
-                                                    id="cvc" 
+                                                    id="CVC" 
                                                     type="text"
-                                                    oninput="validateNumberInput(event)"
+                                                    class="form-field_input _input-cvc"
                                                     maxlength="3"
-                                                    class="form-field_input _input-cvc" 
+                                                    onkeyup="this.value = this.value.replace(/[^0-9]/, '')" required
                                                     placeholder="e.g. 123" >
                                                 <div class="form-field_note-invalid"></div>
                                             </div>
@@ -106,7 +109,7 @@
                 />
                 <h2>THANK YOU!</h2>
                 <p>We've added your card details</p>
-                <button id="btn-continue">Continue</button>
+                <button id="btn-continue" onclick="">Continue</button>
             </div>
         </div>
     </div>
@@ -116,4 +119,4 @@
     <script src="./javascript.js"></script>
 </body>
 
-</html>
+</html> 
