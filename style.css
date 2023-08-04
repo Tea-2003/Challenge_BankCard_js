@@ -11,7 +11,7 @@ body {
     height: 100vh;
     background-image: url(./images/img_background.svg);
     background-repeat: repeat-y;
-    background-size: contain;
+    background-size: 38%;
 }
 
 .app_wrapper {
@@ -72,12 +72,6 @@ body {
     padding: 0 35px;
 }
 
-/* img {
-    width: 400px;
-    height: 200px;
-    border-radius: 15px;
-} */
-
 .card_preview_back {
     margin-left: 80px;
 }
@@ -98,12 +92,15 @@ body {
     font-family: Montserrat;
     font-size: 24px;
     font-weight: 400;
-    letter-spacing: 2px;
+    margin-top: -108px;
 }
 
 .card_bottom {
     display: flex;
     justify-content: space-between;
+    color: #F5F5F5;
+    font-size: 16px;
+    font-family: Montserrat;
 }
 
 .card_name {
@@ -116,25 +113,23 @@ body {
 
 .occult {
     display: none;
-  }
-  
-  .error {
+}
+
+.error {
     position: relative;
     border: 1px solid red;
     outline: none;
-  }
-  
-  form span {
+}
+
+form span {
     margin-left: 14px;
     position: absolute;
     display: block;
     font-size: 0.8rem;
     color: red;
-  }
-  
-  span#cvcError {
-    margin-top: -50px;
-  }
+    font-size: 14px;
+    font-family: Montserrat;
+}
 
 .card_date {
     color: #F5F5F5;
@@ -203,10 +198,9 @@ body {
 
 .card_info {
     max-width: 460px;
-    /* display: none; */
 }
 
-.form-field_input {
+form input {
     width: 100%;
     height: 55px;
     border-radius: 20px;
@@ -232,9 +226,7 @@ form input[type="text"] {
     width: 90px;
 }
 
-input#YY {
-    max-width: 44%;
-}
+
 
 .form-field_input._input-month {
     margin-right: 5px;
@@ -279,31 +271,56 @@ input#YY {
 }
 
 .completion-message {
-    width: 496px;
-    display: none;
-    /* flex-direction: column; */
-    align-items: center;
-    justify-self: center;
+    width: 450px;
+    text-align: center;
+
 }
 
-.completion-message img {
+.occult {
+    width: 496px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.occult img {
     margin-bottom: 1.5rem;
 }
 
 .thanks {
     font-size: 24px;
+    font-family: Montserrat;
+    font-weight: 700;
     color: #3A0652;
-    
+    padding-bottom: 9px;
+
 }
 
 .sub-title {
+    padding-bottom: 9px;
+    font-size: 16px;
+    font-family: Montserrat;
+    font-weight: 500;
     color: #808080;
+}
+
+span#YYerror {
+    margin-left: 108px;
+}
+
+input#MM {
+    width: 44%;
+}
+
+input#YY {
+    width: 44%;
 }
 
 @media(max-width: 768px) {
 
     .app {
-        height: 33vh;
+        height: 31vh;
         width: 100%;
         background-size: 480px;
         margin: 0 auto;
@@ -367,19 +384,23 @@ input#YY {
     }
 
     .card_preview_front .card_text {
+        top: 193px;
         bottom: 13px;
-        margin-left: 25px;
         width: -webkit-fill-available;
-        padding: 0 30px
+        padding: 0 27px
     }
 
     .card_number {
+        width: 100%;
         color: #DEDDDF;
         font-family: Montserrat;
         font-size: 18px;
         font-weight: 400;
-        top: 58px;
 
+    }
+
+    .form-field-calcul input {
+        border-radius: 10px;
     }
 
     .card_bottom {
@@ -401,7 +422,6 @@ input#YY {
 
     .btn {
         width: 100%;
-        padding: 14px 120px;
         border-radius: 10px;
         background: #21092F;
         border: none;
@@ -421,11 +441,16 @@ input#YY {
         height: 41px;
     }
 
-    .form-field_input {
+    .form-field input {
         width: 100%;
         height: 41px;
         border-radius: 10px;
         font-size: 14px;
+    }
+
+    .form-field-cvc input {
+        border-radius: 10px;
+        height: 41px;
     }
 
     form input[type="text"] {
@@ -458,22 +483,47 @@ input#YY {
     .form-field_input._input-cvc {
         max-width: 160px;
     }
+
     .completion-message {
-        width: 320px;
-        display: none;
-        align-items: center;
-        justify-self: center;
+        margin-top: -160px;
+        width: 250px;
     }
-    
+
     .completion-message img {
-        margin-bottom: 1.5rem;
         width: 50px;
         height: 50px;
     }
-    
-    .thanks {
-        font-size: 24px;
-        color: #3A0652;     
+
+    .sub-title {
+        font-size: 12px;
+        padding-bottom: 9px;
+    }
+
+    input#MM {
+        width: 45%;
+    }
+
+    input#YY {
+        width: 45%;
+    }
+
+    form span {
+        margin-left: 0;
+        position: absolute;
+        display: block;
+        font-size: 0.8rem;
+        color: red;
+        font-size: 12px;
+        font-family: Montserrat;
+    }
+
+    span#YYerror {
+        margin-left: 77px;
+    }
+
+    .card_bottom {
+        gap: 0;
+        font-size: 12px;
     }
 
 }
